@@ -39,7 +39,7 @@ def search_issues_with_requests(query: str, token: str) -> []:
     Call the GitHub Search Issues API with a given query and return
     all paginated results.
 
-    :param query: The query to call against search/issues
+    :param query: The query to call against search issues API
     :param token: The GitHub personal access token
     :return: Array of each results
     """
@@ -57,20 +57,28 @@ def search_issues_with_requests(query: str, token: str) -> []:
     return results
 
 
-def filter_item(item: {}, exclude_labels=None) -> bool:
-    if exclude_labels is None:
-        exclude_labels = []
+def filter_item(item: {}, labels_to_filter=None) -> bool:
+    """
+    Filter out list of PRs based on passed set of excluded labels
+    :param item: The GitHub PR to filter
+    :param labels_to_filter: The labels to check for, if any match item is filtered
+    :return: True if list filtered, false otherwise
+    """
+    if labels_to_filter is None:
+        labels_to_filter = []
 
     _filtered = False
 
-    if "labels" in item:
+    if "labels" in item and len(labels_to_filter):
         labels = item['labels']
 
         if len(labels) != 0:
             for label in labels:
-                if label['name'] in exclude_labels:
+                if label['name'] in labels_to_filter:
                     _filtered = True
-        return _filtered
+                    break
+
+    return _filtered
 
 
 def export_csv(csv_file: str, items: [], exclude_labels: []):
@@ -78,7 +86,7 @@ def export_csv(csv_file: str, items: [], exclude_labels: []):
         csv_writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
 
         for item in items:
-            if not filter_item(item, exclude_labels):
+            if not filter_item(item=item, labels_to_filter=exclude_labels):
                 title = item['title']
                 repository_url = item['repository_url']
                 url = item['url']
