@@ -16,8 +16,8 @@ Exports list of merged PRs as a CSV file.
   "repositories": [
      # List of repostiries to include ie "o3de/o3de"
   ],
-  "range_start": "",  # Optional start date, find issues created *after* this date
-  "range_end": "" # Optional end date for query, find issues created *before* this date
+  "range_start": "",  # Start date, find issues created *after* this date
+  "range_end": "" # (Optional) end date for query, find issues created *before* this date
 }
 ```
 ### Run the Script

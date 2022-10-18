@@ -1,8 +1,8 @@
 """
 Example of calling GitHub's Search Issue API
 
-Script will find all the merged PRs contributed to a set of GitHub repors for a given list of GitHub usernames. Can use
-this to pull a list of contributions.
+Script will find all the merged PRs contributed to a set of GitHub repositories for a given list of GitHub usernames.
+Can use this to pull a list of contributions by individual and by team (where team is more than one individual)
 
 Takes a simple config in the form of:
 
@@ -10,9 +10,10 @@ Takes a simple config in the form of:
   "githubToken": "",   # GitHub access token to use
   "members": [
       # Comma separated list of GitHub usernames to query
+      # If more than one, will provide "team" stats
   ],
-  "range_start": "",  # Optional start date, find issues created *after* this date
-  "range_end": "" # Optional end date for query, find issues created *before* this date
+  "range_start": "",  # Start date, find issues created *after* this date
+  "range_end": "" # (Optional) end date for query, find issues created *before* this date
 }
 
 See GitHub documentation for more examples:
@@ -95,9 +96,10 @@ def extract_prs(config: {}, organization: str) -> []:
     prs_by_user = {}
 
     all_items = []
-    range_end = config["range_end"] if "range_end" in config else '*'
+    range_end = config["range_end"] if config.get('range_end') else '*'
 
-    for user in config['members']:
+    _users = config['members']
+    for user in _users:
         # User here is the org owner of the repositories to query
         query = f'author:{user}+is:pr+is:merged+user:{organization}+created:{config["range_start"]}..{range_end}'
         items = search_issues_with_requests(query=query, token=config["token"])
@@ -112,7 +114,9 @@ def extract_prs(config: {}, organization: str) -> []:
                 repository_url = item['repository_url']
                 url = item['url']
 
-                print(f'{title} {url} for {repository_url}')
+                # Print out PR title and URL.
+                # Note: URL contains repository URL
+                print(f'{title}\t{url}')
 
                 # Accumulate per user
                 if repository_url in items_by_repro_by_user:
@@ -128,11 +132,16 @@ def extract_prs(config: {}, organization: str) -> []:
                 else:
                     items_by_repro[repository_url] = 1
 
+        print(f"\n\nContributions by {user}:")
         pprint(items_by_repro_by_user)
+        print(f"\t\tTotal: {len(items)}\n")
         all_items += items
 
-    print("\n\nFor all members of the team:")
-    pprint(items_by_repro)
+    if len(_users) > 1:
+        print("\n\nFor all members of the team:")
+        pprint(items_by_repro)
+        _total = 0
+        print(f"\t\tTotal: {len(all_items)}\n")
     return all_items
 
 
@@ -173,7 +182,7 @@ if __name__ == '__main__':
         items = extract_prs(config=config, organization=args.organization)
 
         if args.result:
-            print("Generating results csv")
+            print(f"Generating results csv: \"{args.filename}\"")
 
             exclude_labels = []
             if "exclude_labels" in config:
