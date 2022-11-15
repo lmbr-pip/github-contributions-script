@@ -1,0 +1,82 @@
+
+Skip to content
+
+    Pricing
+
+Sign in
+Sign up
+godotengine /
+godot
+Public
+
+Code
+Issues 5k+
+Pull requests 1.5k
+Actions
+Projects 2
+Security
+
+    Insights
+
+godot/.github/ISSUE_TEMPLATE/bug_report.yml
+@KoBeWi
+KoBeWi Mention .godot folder in issue template
+Latest commit 246c39a Nov 11, 2022
+History
+3 contributors
+@akien-mga
+@KoBeWi
+@Calinou
+56 lines (50 sloc) 2.27 KB
+name: Bug report
+description: Report a bug in Godot
+body:
+
+- type: markdown
+  attributes:
+    value: |
+      - Read our [CONTRIBUTING.md guide]() on reporting bugs.
+      - Write a descriptive issue title above.
+      - Search [open](https://github.com/lmbr-pip/github-contributions-script/issues) and [closed](https://github.com/lmbr-pip/github-contributions-script/issues?q=is%3Aissue+is%3Aclosed+) issues to ensure it has not already been reported.
+      - Verify that you are using a supported version. 
+- type: input
+  attributes:
+    label: Commit ID
+    description: >
+      Specify the Git commit hash if using a development or non-official build.
+      If you use a custom build, please test if your issue is reproducible in official builds too.
+    placeholder: f4760cf
+  validations:
+    required: true
+
+- type: input
+  attributes:
+    label: System information
+    description: |
+      Specify the OS version, and when relevant hardware information.
+  validations:
+    required: true
+
+- type: textarea
+  attributes:
+    label: Issue description
+    description: |
+      Describe your issue briefly. What doesn't work, and how do you expect it to work instead?
+      You can include images or videos with drag and drop, and format code blocks or logs with <code>```</code> tags.
+  validations:
+    required: true
+
+- type: textarea
+  attributes:
+    label: Steps to reproduce
+    description: |
+      List of steps or sample code that reproduces the issue. Having reproducible issues is a prerequisite for contributors to be able to solve them.
+      If you include a minimal reproduction project below, you can detail how to use it here.
+  validations:
+    required: true
+
+- type: textarea
+  attributes:
+    label: Minimal reproduction project
+    description: |
+        A zip of config files that reproduce the problem.
