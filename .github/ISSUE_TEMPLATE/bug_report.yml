@@ -1,3 +1,7 @@
+name: Bug report
+description: Report a bug. Inspired by the [GoDot](https://github.com/godotengine/godot/blob/master/.github/ISSUE_TEMPLATE/bug_report.yml) bug report template.
+body:
+
 - type: markdown
   attributes:
     value: |
