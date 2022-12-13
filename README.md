@@ -6,7 +6,15 @@ Exports list of merged PRs as a CSV file.
 
 ## Getting Started
 
-### Create a config file
+### 1. Install requirements
+
+1. Make a virtual env: ```python -m venv .venv```
+2. Activate the env: ```source .venv/bin/activate```
+3. Install Requirements: ```pip install -r requirements.txt```
+
+See [venv](https://docs.python.org/3/library/venv.html) for working with python virtual environments
+
+### 2. Create a config file
 ```
 {
   "githubToken": "",   # This should be your GitHub access token
@@ -20,13 +28,13 @@ Exports list of merged PRs as a CSV file.
   "range_end": "" # (Optional) end date for query, find issues created *before* this date
 }
 ```
-### Run the Script
+### 3. Run the Script
 Will take a config file and find all the merged PRs in the 'O3DE' set of repositories.
 
 Results will be outputted to results.csv
 
 ```
-python main.py -f config.json -o 'O3DE' -r <esults.csv
+python main.py -f config.json -o 'O3DE' -r <results.csv
 ```
 
 ## More Information 
