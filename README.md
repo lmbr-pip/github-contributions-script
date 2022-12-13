@@ -2,7 +2,9 @@
 
 An example of calling GitHub's Search Issue API to pull contributions for a given list of contributors
 
-Exports list of merged PRs as a CSV file.
+Exports list of merged PRs or opened issues as a CSV file.
+
+Allows users to search by date range and tracked contributions by user, by repository or by team (a list of users).
 
 ## Getting Started
 
