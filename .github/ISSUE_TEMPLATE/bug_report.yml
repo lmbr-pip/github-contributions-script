@@ -9,6 +9,7 @@ body:
       - Write a descriptive issue title above.
       - Search [open](https://github.com/lmbr-pip/github-contributions-script/issues) and [closed](https://github.com/lmbr-pip/github-contributions-script/issues?q=is%3Aissue+is%3Aclosed+) issues to ensure it has not already been reported.
       - Verify that you are using a supported version.
+
 - type: input
   attributes:
     label: Commit ID or Build Version
@@ -80,5 +81,5 @@ body:
         - CPU [e.g. Intel I9-9900k , Ryzen 5900x, ]
         - GPU [AMD 6800 XT, NVidia RTX 3090]
         - Memory [e.g. 16GB]
-    validations:
-      required: true
+  validations:
+    required: true
