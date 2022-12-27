@@ -1,5 +1,7 @@
 name: Bug report
-description: Report a bug to help us improve. Inspired by the [GoDot](https://github.com/godotengine/godot/blob/master/.github/ISSUE_TEMPLATE/bug_report.yml) bug report template.
+placeholder: Bug Report
+# Inspired by the [GoDot](https://github.com/godotengine/godot/blob/master/.github/ISSUE_TEMPLATE/bug_report.yml) bug report template.
+description: Report an issue to help us improve.
 body:
 
 - type: markdown
@@ -7,14 +9,14 @@ body:
     value: |
       - Read our [CONTRIBUTING.md guide](https://github.com/o3de/community/blob/main/CONTRIBUTING.md) on reporting bugs.
       - Write a descriptive issue title above.
-      - Search [open](https://github.com/lmbr-pip/github-contributions-script/issues) and [closed](https://github.com/lmbr-pip/github-contributions-script/issues?q=is%3Aissue+is%3Aclosed+) issues to ensure it has not already been reported.
+      - Search [open](https://github.com/o3de/o3de/issues) and [closed](https://github.com/o3de/o3de/issues?q=is%3Aissue+is%3Aclosed+) issues to ensure it has not already been reported.
       - Verify that you are using a supported version.
 
 - type: input
   attributes:
     label: Commit ID or Build Version
     description: >
-      Please provide either the build version or the o3de/o3de Git commit hash your branch is built from.
+      Please provide either the build version or the [o3de/o3de](https://github.com/o3de/o3de) Git commit hash your project is using.
       You can get the commit ID by running the `git rev-parse HEAD` command on your current branch or by looking at your Git history.
       If you are using a custom build, please test if your issue is reproducible on an O3DE/O3DE official branch or build.
     placeholder: f4760cf
