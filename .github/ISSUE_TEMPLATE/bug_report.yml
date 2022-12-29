@@ -11,14 +11,13 @@ body:
       - Read our [CONTRIBUTING.md guide](https://github.com/o3de/community/blob/main/CONTRIBUTING.md) on reporting bugs.
       - Write a descriptive issue title above.
       - Search [open](https://github.com/o3de/o3de/issues) and [closed](https://github.com/o3de/o3de/issues?q=is%3Aissue+is%3Aclosed+) issues to ensure it has not already been reported.
-      - Verify that you are using a supported version.
 
 - type: input
   attributes:
     label: Commit ID or Build Version
     description: >
       Please provide either the build version or the [o3de/o3de](https://github.com/o3de/o3de) Git commit hash your project is using.
-      You can get the commit ID by running the `git rev-parse HEAD` command on your current branch or by looking at your Git history.
+      You can get the commit ID by running the `git rev-parse HEAD` command on your current branch or by looking at your Git history using `git log`.
       If you are using a custom build, please test if your issue is reproducible on an O3DE/O3DE official branch or build.
     placeholder: f4760cf
 
@@ -27,9 +26,9 @@ body:
     label: Issue description
     description: |
       Describe your issue briefly. What doesn't work, and how do you expect it to work instead?
-      You can include images or videos with drag and drop, and format code blocks or logs with <code>```</code> tags.
-      Please include any relevant information. For example how you built or installed your project (project versus engine centric), build information (debug, profile, release, unity build etc) 
-      or relevant configuration information.
+      You can include images or videos with drag and drop. You can format code blocks or logs with <code>```</code> tags.
+      Please include any relevant information that may help reproduce issue. Consider including how you built or installed your project (project versus engine centric, debug, profile, release, unity build etc) 
+      or relevant configuration, CVAR or settings used.
   validations:
     required: true
 
@@ -74,7 +73,7 @@ body:
   attributes:
     label: Device/System Information
     description: |
-        Please tell us about the desktop or device issue was encountered on. Please include whats relevant
+        Please tell us about the desktop or device issue was encountered on.
     placeholder: |
         - Device: [e.g. PC, Mac, iPhone, Samsung] 
         - OS: [e.g. Windows, macOS, iOS, Android]
