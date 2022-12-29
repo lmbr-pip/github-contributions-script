@@ -11,14 +11,15 @@ body:
       - Read our [CONTRIBUTING.md guide](https://github.com/o3de/community/blob/main/CONTRIBUTING.md) on reporting bugs.
       - Write a descriptive issue title above.
       - Search [open](https://github.com/o3de/o3de/issues) and [closed](https://github.com/o3de/o3de/issues?q=is%3Aissue+is%3Aclosed+) issues to ensure it has not already been reported.
+      - If you are using a custom build, please test if your issue is reproducible on an O3DE/O3DE official branch, installer or project.
 
 - type: input
   attributes:
     label: Commit ID or Build Version
     description: >
       Please provide either the build version or the [o3de/o3de](https://github.com/o3de/o3de) Git commit hash your project is using.
-      You can get the commit ID by running the `git rev-parse HEAD` command on your current branch or by looking at your Git history using `git log`.
-      If you are using a custom build, please test if your issue is reproducible on an O3DE/O3DE official branch or build.
+      You can get the commit ID by running the `git rev-parse HEAD` command on your current branch or by looking at your Git history using `git log`. 
+      Build numbers are available via the Editor launch screen or the "About O3DE" option in the Help menus.
     placeholder: f4760cf
 
 - type: textarea
@@ -26,9 +27,7 @@ body:
     label: Issue description
     description: |
       Describe your issue briefly. What doesn't work, and how do you expect it to work instead?
-      You can include images or videos with drag and drop. You can format code blocks or logs with <code>```</code> tags.
-      Please include any relevant information that may help reproduce issue. Consider including how you built or installed your project (project versus engine centric, debug, profile, release, unity build etc) 
-      or relevant configuration, CVAR or settings used.
+      Please include any relevant information that may help reproduce issue. This could be include setup, build or configuration information. You can [format code blocks](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#quoting-code), callstacks or logs with <code>```</code> tags.
   validations:
     required: true
 
@@ -67,7 +66,7 @@ body:
   attributes:
     label: Screenshots/Video
     description: |
-      If applicable, add screenshots and/or a video to help explain your problem.
+      If applicable, add screenshots and/or a video to help explain your problem.  You can include images or videos with drag and drop.
 
 - type: textarea
   attributes:
