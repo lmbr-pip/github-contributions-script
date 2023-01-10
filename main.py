@@ -79,12 +79,12 @@ def export_csv(csv_file: str, export_items: [], labels_to_exclude: []):
                 csv_writer.writerow([title, url, repository_url])
 
 
-def extract_issues(settings_config: {}, organization: str, extract_prs: bool = True) -> []:
+def extract_issues(settings_config: {}, organization: str, search: str = "merged") -> []:
     """
-    Extract all submitted PRS or created issues in repositories owned by the passed organization
+    Extract all merged PRS, reviewed PRs or created issues in repositories owned by the passed organization
     :param settings_config: The config settings
     :param organization: The organization that owns rhe repositories in scope
-    :param extract_prs: If true extract PRs, if false extract created issues
+    :param search: Search type: issues, merged or reviewed
     :return: All contributions (either PRs or Issues)
     """
     items_by_repro = {}
@@ -100,21 +100,30 @@ def extract_issues(settings_config: {}, organization: str, extract_prs: bool = T
 
     for user in _users:
         # User here is the org owner of the repositories to query
-        if extract_prs:
-            # Extract merged PRs
-            _query = issue_searcher.pr_ranged_merged_query(user=user,
-                                                           organization=organization,
-                                                           range_start=settings_config['range_start'],
-                                                           range_end=range_end)
-        else:
-            # Extract opened issues
-            _query = issue_searcher.issue_ranged_opened_query(user=user,
-                                                              organization=organization,
-                                                              range_start=settings_config['range_start'],
-                                                              range_end=range_end)
-        _items = issue_searcher.search_issues_with_requests(query=_query)
+        match search:
+            case "issues":
+                _query = issue_searcher.issue_ranged_opened_query(user=user,
+                                                                  organization=organization,
+                                                                  range_start=settings_config['range_start'],
+                                                                  range_end=range_end)
+                _type = "created issues"
 
-        _type = 'merged PRs' if extract_prs else 'opened issues'
+            case "reviews":
+                _query = issue_searcher.pr_ranged_reviewed_query(user=user,
+                                                                 organization=organization,
+                                                                 range_start=settings_config['range_start'],
+                                                                 range_end=range_end)
+                _type = 'reviewed PRs'
+
+            case _:
+                # Default to merged PRs
+                _query = issue_searcher.pr_ranged_merged_query(user=user,
+                                                               organization=organization,
+                                                               range_start=settings_config['range_start'],
+                                                               range_end=range_end)
+                _type = 'merged PRs'
+
+        _items = issue_searcher.search_issues_with_requests(query=_query)
         print(f'{len(_items)} {_type} found for {user}')
 
         prs_by_user[user] = len(_items)
@@ -188,14 +197,14 @@ if __name__ == '__main__':
     parser.add_argument('-filename', '-f', required=True, type=is_file, help="The config json to load")
     parser.add_argument('-organization', '-o', type=str, default='o3de',
                         help="The GitHub organization to check, defaults to O3DE")
-    parser.add_argument('-issues', '-i', action='store_true', help='If provided searches issues rather than PRs')
+    parser.add_argument('-search', '-s', default="merged", choices=['issues', 'merges', 'reviews'],
+                        help='Type of search to run: issues (created issues), merges (merged PRs), reviews (reviewed PRs)')
     parser.add_argument('-result', '-r', type=is_new_file, help="The results file, export all results in as CSV")
     args = parser.parse_args()
 
     with open(args.filename, 'rt') as f:
         config = json.load(f)
-        _ps = not args.issues
-        items = extract_issues(settings_config=config, organization=args.organization, extract_prs=_ps)
+        items = extract_issues(settings_config=config, organization=args.organization, search=args.search)
 
         if args.result:
             print(f"Generating results csv: \"{args.filename}\"")

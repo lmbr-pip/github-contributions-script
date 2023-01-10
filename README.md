@@ -1,8 +1,10 @@
 # Overview
 
-An example of calling GitHub's Search Issue API to pull contributions for a given list of contributors
+An example of calling GitHub's Search Issue API to pull contributions for a given list of contributors.
 
-Exports list of merged PRs or opened issues as a CSV file.
+Uses Python 3.10+ (uses `matcher`)
+
+Exports list of merged PRs, reviewed PRs or opened issues as a CSV file.
 
 Allows users to search by date range and tracked contributions by user, by repository or by team (a list of users).
 
@@ -33,10 +35,9 @@ See [venv](https://docs.python.org/3/library/venv.html) for working with python 
 ### 3. Run the Script
 Will take a config file and find all the merged PRs in the 'O3DE' set of repositories.
 
-Results will be outputted to results.csv
-
+Results will be outputted to results.csv if provided, otherwise printed to screen.
 ```
-python main.py -f config.json -o 'O3DE' -r <results.csv
+python main.py -f config.json -o 'O3DE' -s [reviews, issues, merges] -r <results.csv
 ```
 
 ## More Information 

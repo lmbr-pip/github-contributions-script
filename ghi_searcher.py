@@ -25,6 +25,17 @@ class GitHubIssuesSearcher(object):
         """
         return f'author:{user}+is:pr+is:merged+user:{organization}+created:{range_start}..{range_end}'
 
+    def pr_ranged_reviewed_query(self, user: str, organization: str, range_start: str, range_end: str) -> str:
+        """
+        Builds a query to find all the reviewed PRs by the user in the provided date range
+        :param user: the GitHub user id
+        :param organization: matches issues in repositories owned by the GitHub organization
+        :param range_start: The starting date range
+        :param range_end: (Optional) the ending date range
+        :return: query to use with search api
+        """
+        return f'is:pr+reviewed-by:{user}+user:{organization}+created:{range_start}..{range_end}'
+
     def issue_ranged_closed_query(self, user: str, organization: str, range_start: str, range_end: str) -> str:
         """
         Find all the closed issues created by the user in given range
