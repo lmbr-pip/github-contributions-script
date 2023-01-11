@@ -79,12 +79,13 @@ def export_csv(csv_file: str, export_items: [], labels_to_exclude: []):
                 csv_writer.writerow([title, url, repository_url])
 
 
-def extract_issues(settings_config: {}, organization: str, search: str = "merged") -> []:
+def extract_issues(settings_config: {}, organization: str, search: str = "merged", verbose: bool = False) -> []:
     """
     Extract all merged PRS, reviewed PRs or created issues in repositories owned by the passed organization
     :param settings_config: The config settings
     :param organization: The organization that owns rhe repositories in scope
     :param search: Search type: issues, merged or reviewed
+    :param verbose: If true, print individual contribution lines
     :return: All contributions (either PRs or Issues)
     """
     items_by_repro = {}
@@ -138,7 +139,8 @@ def extract_issues(settings_config: {}, organization: str, search: str = "merged
                 pr_number = item['number']
 
                 # Print out number, title and URL (contains repository URL)
-                print(f'[{pr_number}]\t{title}\t{url}')
+                if verbose:
+                    print(f'[{pr_number}]\t{title}\t{url}')
 
                 # Accumulate per user
                 if repository_url in items_by_repro_by_user:
@@ -199,12 +201,15 @@ if __name__ == '__main__':
                         help="The GitHub organization to check, defaults to O3DE")
     parser.add_argument('-search', '-s', default="merged", choices=['issues', 'merges', 'reviews'],
                         help='Type of search to run: issues (created issues), merges (merged PRs), reviews (reviewed PRs)')
+    parser.add_argument('-verbose', '-v',  default=False, action='store_true',
+                        help="If true output full list to screen.")
     parser.add_argument('-result', '-r', type=is_new_file, help="The results file, export all results in as CSV")
     args = parser.parse_args()
 
     with open(args.filename, 'rt') as f:
         config = json.load(f)
-        items = extract_issues(settings_config=config, organization=args.organization, search=args.search)
+        items = extract_issues(settings_config=config, organization=args.organization, search=args.search,
+                               verbose=args.verbose)
 
         if args.result:
             print(f"Generating results csv: \"{args.filename}\"")

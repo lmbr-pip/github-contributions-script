@@ -37,7 +37,7 @@ Will take a config file and find all the merged PRs in the 'O3DE' set of reposit
 
 Results will be outputted to results.csv if provided, otherwise printed to screen.
 ```
-python main.py -f config.json -o 'O3DE' -s [reviews, issues, merges] -r <results.csv
+python main.py -f config.json -o 'O3DE' -s [reviews, issues, merges] -r <results.csv> -verbose
 ```
 
 ## More Information 
