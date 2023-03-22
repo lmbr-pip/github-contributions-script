@@ -19,9 +19,10 @@ Allows users to search by date range and tracked contributions by user, by repos
 See [venv](https://docs.python.org/3/library/venv.html) for working with python virtual environments
 
 ### 2. Create a config file
+
 ```
 {
-  "githubToken": "",   # This should be your GitHub access token
+  "github_token": "",   # This should be your GitHub access token
   "members": [
       # Comma separated list of GitHub usernames to query
   ],
